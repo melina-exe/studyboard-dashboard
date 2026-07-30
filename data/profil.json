@@ -1,0 +1,250 @@
+{
+  "profil": {
+    "name": "Melina Deske",
+    "matrikelnummer": "IU14151398"
+  },
+  "studiengang": {
+    "name": "B.Sc. Cyber Security",
+    "gesamt_ects": 180
+  },
+  "kurse": [
+    {
+      "name": "OOP Python",
+      "ects": 5,
+      "semester": 1,
+      "pruefungstermin": "2026-07-03",
+      "archiviert": true,
+      "lektionen": [
+        {
+          "name": "Lektion 1",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 2",
+          "abgeschlossen": true
+        },
+        {
+          "name": "1",
+          "abgeschlossen": true
+        },
+        {
+          "name": "2",
+          "abgeschlossen": true
+        },
+        {
+          "name": "3",
+          "abgeschlossen": true
+        },
+        {
+          "name": "4",
+          "abgeschlossen": true
+        },
+        {
+          "name": "5",
+          "abgeschlossen": true
+        },
+        {
+          "name": "6",
+          "abgeschlossen": true
+        },
+        {
+          "name": "7",
+          "abgeschlossen": true
+        },
+        {
+          "name": "8",
+          "abgeschlossen": true
+        }
+      ],
+      "pruefungsleistung": {
+        "note": 1.0,
+        "eintragungsdatum": "2026-07-20"
+      }
+    },
+    {
+      "name": "Datenbanken",
+      "ects": 5,
+      "semester": 2,
+      "pruefungstermin": "2025-02-20",
+      "archiviert": true,
+      "lektionen": [
+        {
+          "name": "Lektion 1",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 2",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 3",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 4",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 5",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 6",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 7",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 8",
+          "abgeschlossen": true
+        }
+      ],
+      "pruefungsleistung": {
+        "note": 1.7,
+        "eintragungsdatum": "2026-07-20"
+      }
+    },
+    {
+      "name": "Betriebssysteme, Rechnernetze und verteilte Systeme",
+      "ects": 5,
+      "semester": 1,
+      "pruefungstermin": "2026-07-01",
+      "archiviert": false,
+      "lektionen": [
+        {
+          "name": "Lektion 1",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 2",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 3",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 4",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 5",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 6",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 7",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 8",
+          "abgeschlossen": true
+        }
+      ],
+      "pruefungsleistung": {
+        "note": 2.5,
+        "eintragungsdatum": "2026-07-28"
+      }
+    },
+    {
+      "name": "Einführung in Datenschutz und IT-Sicherheit",
+      "ects": 5,
+      "semester": 1,
+      "pruefungstermin": "2026-05-25",
+      "archiviert": false,
+      "lektionen": [
+        {
+          "name": "Lektion 1",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 2",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 3",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 4",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 5",
+          "abgeschlossen": true
+        }
+      ],
+      "pruefungsleistung": {
+        "note": 2.7,
+        "eintragungsdatum": "2026-07-28"
+      }
+    },
+    {
+      "name": "Einführung in das wissenschaftliche Arbeiten für IT und Technik",
+      "ects": 5,
+      "semester": 1,
+      "pruefungstermin": "2026-04-04",
+      "archiviert": false,
+      "lektionen": [
+        {
+          "name": "Lektion 1",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 2",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 3",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 4",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 5",
+          "abgeschlossen": true
+        }
+      ],
+      "pruefungsleistung": {
+        "note": 1.0,
+        "eintragungsdatum": "2026-07-28"
+      }
+    },
+    {
+      "name": "Test",
+      "ects": 5,
+      "semester": 2,
+      "pruefungstermin": "2026-07-29",
+      "archiviert": false,
+      "lektionen": [
+        {
+          "name": "Lektion 1",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 2",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 3",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 4",
+          "abgeschlossen": true
+        }
+      ],
+      "pruefungsleistung": {
+        "note": 4.0,
+        "eintragungsdatum": "2026-07-29"
+      }
+    }
+  ]
+}
