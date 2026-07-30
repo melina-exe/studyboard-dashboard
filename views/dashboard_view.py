@@ -1,7 +1,13 @@
 # views/dashboard_view.py
+"""Dashboard-Ansicht: die Startseite der App. Zeigt Kennzahlen (ECTS,
+Notendurchschnitt, bestandene Kurse), eine Kachel Übersicht aller aktiven
+(nicht archivierten) Kurse und eine Liste der anstehenden Prüfungen."""
 import customtkinter as ctk
 from PIL import Image
 
+# Design-Farbpalette (dunkles Farbschema, siehe Phase-3-Abstract für die
+# Begründung: bessere Lesbarkeit der Status-Farben und ruhigere Optik als
+# der ursprünglich in Phase 1 skizzierte helle Hintergrund).
 DUNKEL = "#0d0d14"
 KARTEN_BG = "#13111f"
 BORDER = "#1e1a2e"
@@ -22,12 +28,13 @@ class DashboardView(ctk.CTkFrame):
         self._aufbauen()
 
     def _aufbauen(self):
-        # -- Header --
+        # -- Header: Logo links, Nutzername + Avatar rechts (klickbar -> Profil) --
         header = ctk.CTkFrame(self, fg_color=DUNKEL, border_width=1, border_color=BORDER, corner_radius=0)
         header.pack(fill="x", ipady=6)
 
         ctk.CTkLabel(header, text="StudyBoard", font=ctk.CTkFont(size=24, weight="bold", family="Georgia"), text_color=TEXT).pack(side="left", padx=24, pady=12)
 
+        # Der gesamte rechte Bereich (Name + Avatar) ist klickbar und führt zur Profilansicht
         rechts = ctk.CTkFrame(header, fg_color="transparent", cursor="hand2")
         rechts.pack(side="right", padx=24, pady=8)
         rechts.bind("<Button-1>", lambda e: self.app.ansicht_wechseln("profil"))
@@ -51,7 +58,7 @@ class DashboardView(ctk.CTkFrame):
         self.avatar_label.pack(side="left")
         self.avatar_label.bind("<Button-1>", lambda e: self.app.ansicht_wechseln("profil"))
 
-        # -- Kennzahlen --
+        # -- Kennzahlen: drei Karten nebeneinander (ECTS, Notendurchschnitt, bestandene Kurse) --
         kenn_frame = ctk.CTkFrame(self, fg_color="transparent")
         kenn_frame.pack(fill="x", padx=24, pady=14)
         kenn_frame.grid_columnconfigure((0, 1, 2), weight=1)
@@ -65,13 +72,13 @@ class DashboardView(ctk.CTkFrame):
         self.kenn_bestanden = self._kennzahl_karte(kenn_frame, "Kurse bestanden", "--", "--")
         self.kenn_bestanden.grid(row=0, column=2, padx=(8, 0), sticky="nsew")
 
-        # -- Alle Kurse --
+        # -- Alle Kurse: scrollbarer Bereich mit den Kurskacheln (2 Spalten) --
         ctk.CTkLabel(self, text="ALLE KURSE", font=ctk.CTkFont(size=15, weight="bold"), text_color=TEXT_MUTED).pack(anchor="w", padx=24)
 
         self.kurs_scroll = ctk.CTkScrollableFrame(self, fg_color="transparent",scrollbar_button_color=BORDER,height=260)
         self.kurs_scroll.pack(fill="both", expand=True, padx=24, pady=(8, 0))
 
-        # -- Countdown --
+        # -- Prüfungs-Countdown: Liste aller anstehenden Prüfungstermine, am unteren Rand fixiert --
         self.countdown_frame = ctk.CTkFrame(self, fg_color=KARTEN_BG, corner_radius=16)
         self.countdown_frame.pack(fill="x", padx=24, pady=(0, 20), side="bottom")
 
@@ -79,6 +86,10 @@ class DashboardView(ctk.CTkFrame):
         self.countdown_label.pack(anchor="w", padx=24, pady=(14, 4), side="bottom")
 
     def _kennzahl_karte(self, parent, label, wert, sub):
+        """Baut eine einzelne Kennzahlen-Karte (Titel, großer Wert, Unterzeile).
+        Die Wert-/Unterzeilen-Labels werden als Attribute an das Frame gehängt
+        (_lbl_wert, _lbl_sub), damit aktualisieren() sie später direkt updaten
+        kann, ohne die ganze Karte neu aufzubauen."""
         karte = ctk.CTkFrame(parent, fg_color=KARTEN_BG, corner_radius=16)
         ctk.CTkLabel(karte, text=label, font=ctk.CTkFont(size=15), text_color=LILA_HELL).pack(anchor="w", padx=20, pady=(16, 2))
         lbl_wert = ctk.CTkLabel(karte, text=wert, font=ctk.CTkFont(size=20, weight="bold"), text_color=TEXT)
@@ -90,6 +101,10 @@ class DashboardView(ctk.CTkFrame):
         return karte
 
     def aktualisieren(self):
+        """Aktualisiert die komplette Dashboard-Ansicht mit dem aktuellen
+        Datenstand. Wird bei jedem Wechsel zur Dashboard-Ansicht aufgerufen
+        (siehe DashboardApp.ansicht_wechseln), damit Änderungen aus der
+        Profilansicht (neuer Kurs, Note eingetragen, ...) sofort sichtbar sind."""
         kurse = self.app.profil.kurse
         service = self.app.studiengang_service
 
@@ -109,6 +124,9 @@ class DashboardView(ctk.CTkFrame):
         self.kenn_bestanden._lbl_wert.configure(text=f"{bestanden} / {len(kurse)}")
         self.kenn_bestanden._lbl_sub.configure(text=f"{bestanden} bestanden")
 
+        # Kurskacheln komplett neu aufbauen (einfacher als einzelne Kacheln
+        # gezielt zu aktualisieren, und bei der überschaubaren Kursanzahl
+        # performant genug)
         for widget in self.kurs_scroll.winfo_children():
             widget.destroy()
 
@@ -121,9 +139,18 @@ class DashboardView(ctk.CTkFrame):
             for i, kurs in enumerate(aktive_kurse):
                 kachel = KursView(self.kurs_scroll, kurs, self.app)
                 kachel.grid(row=i // 2, column=i % 2, padx=6, pady=6, sticky="nsew")
-            self.kurs_scroll.grid_columnconfigure(0, weight=1)
-            self.kurs_scroll.grid_columnconfigure(1, weight=1)
+            # uniform="kurskarte" erzwingt, dass beide Spalten IMMER exakt
+            # gleich breit sind, unabhängig davon, wie viel Inhalt (z.B.
+            # Anzahl Lektionen) eine einzelne Karte hat. Ohne das würde eine
+            # besonders "volle" Karte ihre Spalte in die Breite ziehen und
+            # das Raster wirkt bei Fensteränderung ungleichmäßig.
+            self.kurs_scroll.grid_columnconfigure(0, weight=1, uniform="kurskarte")
+            self.kurs_scroll.grid_columnconfigure(1, weight=1, uniform="kurskarte")
 
+        # Prüfungs-Countdown neu aufbauen: nur aktive, noch nicht bestandene
+        # Kurse MIT gesetztem Prüfungstermin (ein Kurs ohne Termin oder ein
+        # gerade nicht bestandener Kurs ohne neuen Termin taucht hier bewusst
+        # nicht auf, siehe KursView für die Retry-Logik)
         for widget in self.countdown_frame.winfo_children():
             widget.destroy()
 
@@ -133,6 +160,7 @@ class DashboardView(ctk.CTkFrame):
         else:
             for i, kurs in enumerate(aktive_mit_termin):
                 cd = kurs.berechne_countdown()
+                # Farbcodierung nach Dringlichkeit: rot < 10 Tage, orange < 30 Tage, sonst neutral
                 farbe = ROT if cd < 10 else ORANGE if cd < 30 else LILA_HELL
                 if i > 0:
                     ctk.CTkFrame(self.countdown_frame, fg_color=BORDER, height=1).pack(fill="x", padx=20)

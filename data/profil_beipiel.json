@@ -1,0 +1,180 @@
+{
+  "profil": {
+    "name": "Max Mustermann",
+    "matrikelnummer": "IU00000000"
+  },
+  "studiengang": {
+    "name": "B.Sc. Cyber Security",
+    "gesamt_ects": 180
+  },
+  "kurse": [
+    {
+      "name": "Objektorientierte Programmierung",
+      "ects": 5,
+      "semester": 1,
+      "pruefungstermin": "2026-06-20",
+      "archiviert": false,
+      "lektionen": [
+        {
+          "name": "Lektion 1",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 2",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 3",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 4",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 5",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 6",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 7",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 8",
+          "abgeschlossen": true
+        }
+      ],
+      "pruefungsleistung": {
+        "note": 1.7,
+        "eintragungsdatum": "2026-07-30"
+      }
+    },
+    {
+      "name": "IT-Sicherheit Grundlagen",
+      "ects": 5,
+      "semester": 2,
+      "pruefungstermin": null,
+      "archiviert": false,
+      "lektionen": [
+        {
+          "name": "Lektion 1",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 2",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 3",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 4",
+          "abgeschlossen": false
+        },
+        {
+          "name": "Lektion 5",
+          "abgeschlossen": false
+        },
+        {
+          "name": "Lektion 6",
+          "abgeschlossen": false
+        }
+      ],
+      "pruefungsleistung": null
+    },
+    {
+      "name": "Datenbanken",
+      "ects": 5,
+      "semester": 2,
+      "pruefungstermin": "2026-08-05",
+      "archiviert": false,
+      "lektionen": [
+        {
+          "name": "Lektion 1",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 2",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 3",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 4",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 5",
+          "abgeschlossen": true
+        }
+      ],
+      "pruefungsleistung": null
+    },
+    {
+      "name": "Mathematik 1",
+      "ects": 5,
+      "semester": 1,
+      "pruefungstermin": "2026-08-19",
+      "archiviert": false,
+      "lektionen": [
+        {
+          "name": "Lektion 1",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 2",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 3",
+          "abgeschlossen": false
+        },
+        {
+          "name": "Lektion 4",
+          "abgeschlossen": false
+        },
+        {
+          "name": "Lektion 5",
+          "abgeschlossen": false
+        }
+      ],
+      "pruefungsleistung": null
+    },
+    {
+      "name": "Statistik",
+      "ects": 5,
+      "semester": 3,
+      "pruefungstermin": "2026-08-11",
+      "archiviert": false,
+      "lektionen": [
+        {
+          "name": "Lektion 1",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 2",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 3",
+          "abgeschlossen": true
+        },
+        {
+          "name": "Lektion 4",
+          "abgeschlossen": true
+        }
+      ],
+      "pruefungsleistung": {
+        "note": 5.0,
+        "eintragungsdatum": "2026-07-20"
+      }
+    }
+  ]
+}

@@ -1,11 +1,19 @@
 # models/pruefungsleistung.py
+"""Datenmodell für eine abgelegte Prüfung (Note + Eintragungsdatum)."""
 from datetime import date
 
 class Pruefungsleistung:
-    """Speichert Note und Eintragungsdatum einer abgelegten Prüfung."""
+    """Speichert Note und Eintragungsdatum einer abgelegten Prüfung.
+
+    Notenskala nach deutschem Hochschulsystem: 1.0 ist die beste Note,
+    4.0 ("ausreichend") gilt gerade noch als bestanden, 5.0 ist nicht bestanden.
+    """
 
     def __init__(self):
         self._note = None
+        # Eintragungsdatum wird beim Erstellen automatisch auf heute gesetzt.
+        # Beim Laden aus der JSON-Datei wird es über den Setter unten mit dem
+        # tatsächlich gespeicherten Datum überschrieben (siehe ProfilRepository.laden()).
         self._eintragungsdatum = date.today()
 
     @property
@@ -22,6 +30,8 @@ class Pruefungsleistung:
 
     @property
     def eintragungsdatum(self) -> date:
+        """Datum, an dem die Note eingetragen wurde. Wird vom ArchivService
+        genutzt, um zu prüfen, wie lange ein bestandener Kurs schon sichtbar ist."""
         return self._eintragungsdatum
 
     @eintragungsdatum.setter
@@ -31,7 +41,7 @@ class Pruefungsleistung:
         self._eintragungsdatum = wert
 
     def ist_bestanden(self) -> bool:
-        """Gibt True zurück wenn die Note besser als 4.0 ist."""
+        """Gibt True zurück, wenn die Note 4.0 oder besser (also kleiner/gleich) ist."""
         if self._note is None:
             return False
         return self._note <= 4.0

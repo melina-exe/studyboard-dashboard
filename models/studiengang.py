@@ -1,7 +1,10 @@
 # models/studiengang.py
+"""Datenmodell für den Studiengang, reines Datenobjekt ohne eigene Logik.
+Berechnungen (ECTS-Fortschritt, Durchschnitt etc.) übernimmt der
+StudiengangService, dem die Kursliste jeweils als Parameter übergeben wird."""
 
 class Studiengang:
-    """Repräsentiert den Studiengang — reines Datenobjekt."""
+    """Repräsentiert den Studiengang ein reines Datenobjekt."""
 
     def __init__(self, name: str, gesamt_ects: int):
         self._name = name
@@ -17,6 +20,7 @@ class Studiengang:
 
     @property
     def gesamt_ects(self) -> int:
+        """Gesamtzahl der für den Studiengang benötigten ECTS-Punkte (z.B. 180)."""
         return self._gesamt_ects
 
     @gesamt_ects.setter

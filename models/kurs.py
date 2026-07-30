@@ -31,9 +31,11 @@ class Kurs:
 
     @ects.setter
     def ects(self, wert: int):
-        """Setzt die ECTS, wenn der Wert positiv ist."""
+        """Setzt die ECTS, wenn der Wert in einem realistischen Bereich liegt."""
         if wert <= 0:
             raise ValueError(f"ECTS müssen größer als 0 sein, war: {wert}")
+        if wert > 20:
+            raise ValueError(f"ECTS dürfen nicht größer als 20 sein, war: {wert}")
         self._ects = wert
 
     @property
@@ -42,9 +44,11 @@ class Kurs:
 
     @semester.setter
     def semester(self, wert: int):
-        """Setzt das Semester, wenn der Wert positiv ist."""
+        """Setzt das Semester, wenn der Wert in einem realistischen Bereich liegt."""
         if wert <= 0:
             raise ValueError(f"Semester muss größer als 0 sein, war: {wert}")
+        if wert > 8:
+            raise ValueError(f"Semester darf nicht größer als 8 sein, war: {wert}")
         self._semester = wert
 
     @property
@@ -53,6 +57,13 @@ class Kurs:
 
     @pruefungstermin.setter
     def pruefungstermin(self, wert: date | None):
+        if wert is not None:
+            fruehestes_jahr = 2015
+            spaetestes_jahr = date.today().year + 10
+            if not (fruehestes_jahr <= wert.year <= spaetestes_jahr):
+                raise ValueError(
+                    f"Prüfungstermin muss zwischen {fruehestes_jahr} und {spaetestes_jahr} liegen, war: {wert.year}"
+                )
         self._pruefungstermin = wert
 
     @property
@@ -111,6 +122,8 @@ class Kurs:
         oder entfernt überzählige vom Ende der Liste."""
         if neue_anzahl < 0:
             raise ValueError(f"Anzahl Lektionen darf nicht negativ sein, war: {neue_anzahl}")
+        if neue_anzahl > 20:
+            raise ValueError(f"Anzahl Lektionen darf nicht größer als 20 sein, war: {neue_anzahl}")
         alte_anzahl = len(self._lektionen)
         if neue_anzahl > alte_anzahl:
             for i in range(alte_anzahl + 1, neue_anzahl + 1):
