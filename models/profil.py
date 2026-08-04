@@ -28,6 +28,10 @@ class Profil:
     def matrikelnummer(self) -> str:
         return self._matrikelnummer
 
+    @matrikelnummer.setter
+    def matrikelnummer(self, wert: str):
+        self._matrikelnummer = wert
+
     @property
     def kurse(self) -> list[Kurs]:
         """Alle Kurse des Nutzers (aktive UND archivierte)."""

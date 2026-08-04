@@ -69,6 +69,7 @@ class ProfilView(ctk.CTkFrame):
     def _profildaten_inhalt(self, parent):
         """Inhalt des 'Profildaten'-Akkordeons: Name, Studiengang, Gesamt-ECTS."""
         self.e_name = self._feld(parent, "Name", wert=self.app.profil.name)
+        self.e_matrikelnummer = self._feld(parent, "Matrikelnummer", wert=self.app.profil.matrikelnummer)
         self.e_sg_name = self._feld(parent, "Studiengang", wert=self.app.studiengang.name)
         self.e_sg_ects = self._feld(parent, "Gesamt-ECTS", wert=str(self.app.studiengang.gesamt_ects))
         self._speichern_btn(parent, self._profildaten_speichern)
@@ -394,6 +395,7 @@ class ProfilView(ctk.CTkFrame):
         'Profildaten'-Formular. Gesamt-ECTS wird bei ungültiger Eingabe
         einfach ignoriert (kein Fehlertext nötig, da nur eine Randfunktion)."""
         self.app.profil.name = self.e_name.get()
+        self.app.profil.matrikelnummer = self.e_matrikelnummer.get()
         self.app.studiengang.name = self.e_sg_name.get()
         try:
             self.app.studiengang.gesamt_ects = int(self.e_sg_ects.get())
