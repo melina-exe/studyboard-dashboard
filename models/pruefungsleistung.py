@@ -11,9 +11,9 @@ class Pruefungsleistung:
 
     def __init__(self):
         self._note = None
-        # Eintragungsdatum wird beim Erstellen automatisch auf heute gesetzt.
-        # Beim Laden aus der JSON-Datei wird es über den Setter unten mit dem
-        # tatsächlich gespeicherten Datum überschrieben (siehe ProfilRepository.laden()).
+        # Eintragungsdatum wird beim Erstellen erstmal auf heute gesetzt. Beim
+        # Laden aus der JSON-Datei überschreibt der Setter unten das dann mit
+        # dem tatsächlich gespeicherten Datum (siehe ProfilRepository.laden()).
         self._eintragungsdatum = date.today()
 
     @property

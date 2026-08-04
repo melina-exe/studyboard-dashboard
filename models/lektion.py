@@ -4,14 +4,14 @@
 class Lektion:
     """Repräsentiert eine einzelne Lektion innerhalb eines Kurses.
 
-    Eine Lektion hat nur einen Namen und einen Abgeschlossen-Status; der
-    Lernfortschritt eines Kurses (Kurs.berechne_fortschritt()) berechnet sich
-    aus dem Anteil abgeschlossener Lektionen an der Gesamtzahl.
-    """
+    Speichert nur Name und ob sie abgeschlossen ist. Der Fortschritt eines
+    Kurses (Kurs.berechne_fortschritt()) ergibt sich daraus, wie viele
+    Lektionen schon abgehakt sind."""
 
     def __init__(self, name: str):
         self._name = name
         self._abgeschlossen = False
+        self._geloescht = False
 
     @property
     def name(self) -> str:
@@ -27,12 +27,15 @@ class Lektion:
     def abgeschlossen(self, wert: bool):
         self._abgeschlossen = wert
 
-    def lektion_entfernen(self):
-        """Markiert die Lektion als zu löschen.
+    @property
+    def geloescht(self) -> bool:
+        """True, wenn die Lektion über lektion_entfernen() gelöscht wurde.
+        Kurs.lektionen blendet gelöschte Lektionen aus, siehe dort."""
+        return self._geloescht
 
-        Hinweis: Das tatsächliche Entfernen von Lektionen läuft in der Praxis
-        über Kurs.lektionen_anzahl_anpassen(), das die Lektionen-Liste direkt
-        anpasst. Diese Methode existiert zur Konsistenz mit dem Klassendiagramm,
-        wird aktuell aber nicht aufgerufen.
-        """
-        pass
+    def lektion_entfernen(self):
+        """Markiert die Lektion als gelöscht.
+
+        Kurs.lektionen filtert gelöschte Lektionen automatisch raus, die
+        Lektion bleibt also nur intern im Objekt erhalten, nicht mehr sichtbar."""
+        self._geloescht = True

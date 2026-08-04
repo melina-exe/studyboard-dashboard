@@ -1,12 +1,12 @@
 # views/profil_view.py
-"""Profilansicht: Formular-lastige Ansicht zum Verwalten von Profildaten,
+"""Profilansicht: Formular Ansicht zum Verwalten von Profildaten,
 Studiengang und der eigenen Kursliste (anlegen, bearbeiten, löschen). Die
 Kurse werden in aufklappbaren Akkordeon-Bereichen gruppiert: nach Semester
 für aktive Kurse, und separat für archivierte Kurse."""
 import customtkinter as ctk
 from models.kurs import Kurs
 
-# Design-Farbpalette, siehe dashboard_view.py für die gleiche Palette
+# Design-Farbpalette
 DUNKEL = "#0d0d14"
 KARTEN_BG = "#13111f"
 BORDER = "#1e1a2e"
@@ -77,8 +77,7 @@ class ProfilView(ctk.CTkFrame):
         """Baut einen aufklappbaren Bereich (Akkordeon) mit Titel-Kopfzeile
         und Pfeil-Icon. inhalt_fn wird mit dem body-Frame aufgerufen und
         füllt den eigentlichen Inhalt, so kann diese eine Methode für ganz
-        unterschiedliche Inhalte (Profildaten, Kurs hinzufügen, Semester-
-        Listen, archivierte Kurse) wiederverwendet werden."""
+        unterschiedliche Inhalte (Profildaten, Kurs hinzufügen, Semester, archivierte Kurse) wiederverwendet werden."""
         container = ctk.CTkFrame(self.scroll, fg_color=KARTEN_BG, corner_radius=16)
         container.pack(fill="x", pady=5)
 
@@ -117,7 +116,7 @@ class ProfilView(ctk.CTkFrame):
     def _kurse_akkordeons(self):
         """Gruppiert alle AKTIVEN (nicht archivierten) Kurse nach Semester
         und zeigt sie in je einem eigenen Akkordeon-Bereich ("Semester 1",
-        "Semester 2", ...) an."""
+        "Semester 2", etc. ) an."""
         aktive_kurse = [k for k in self.app.profil.kurse if not k.archiviert]
 
         if not aktive_kurse:
@@ -183,7 +182,7 @@ class ProfilView(ctk.CTkFrame):
     def _feld(self, parent, label, placeholder="", wert=""):
         """Baut eine beschriftete Eingabezeile (Label links, Entry rechts).
         Wiederverwendbarer Baustein für die meisten Formularfelder in dieser
-        Ansicht (Kursname, ECTS, Semester, ...)."""
+        Ansicht (Kursname, ECTS, Semester, etc.)."""
         zeile = ctk.CTkFrame(parent, fg_color="transparent")
         zeile.pack(fill="x", pady=4)
         ctk.CTkLabel(zeile, text=label, width=140, anchor="w", font=ctk.CTkFont(size=12), text_color=TEXT_MUTED).pack(side="left")
@@ -194,7 +193,7 @@ class ProfilView(ctk.CTkFrame):
         return entry
 
     def _kurs_hinzufuegen_inhalt(self, parent):
-        """Inhalt des 'Kurs hinzufügen'-Formulars: Kursname, ECTS, Semester,
+        """Inhalt des Kurs hinzufügen Formulars: Kursname, ECTS, Semester,
         optionaler Prüfungstermin, optionale Lektionenanzahl."""
         self.e_kursname = self._feld(parent, "Kursname", placeholder="z.B. Analysis")
         self.e_kurs_ects = self._feld(parent, "ECTS", placeholder="z.B. 5")
@@ -349,7 +348,7 @@ class ProfilView(ctk.CTkFrame):
 
             # -- 2. Erst jetzt, wenn alles gültig ist, die Änderungen anwenden.
             #    Bei einem Fehler mittendrin wird auf den alten Stand zurückgesetzt,
-            #    damit kein Teil der Änderungen "hängen bleibt". --
+            #    damit kein Teil der Änderungen hängen bleibt. --
             alte_ects, alter_semester = kurs.ects, kurs.semester
             alter_termin = kurs.pruefungstermin
             alte_lektionen_anzahl = len(kurs.lektionen)
@@ -377,8 +376,8 @@ class ProfilView(ctk.CTkFrame):
         ).pack(anchor="e", pady=8)
 
     def _speichern_btn(self, parent, command):
-        """Baut den (optisch zurückhaltenderen, nur umrandeten) Speichern-
-        Button für die Profildaten-Formulare. Der 'Kurs hinzufügen'-Button
+        """Baut den (optisch zurückhaltenderen, nur umrandeten) Speichern 
+        Button für die Profildaten Formulare. Der 'Kurs hinzufügen'-Button
         hat bewusst ein eigenes, kräftigeres Design (siehe oben), da er die
         primäre Aktion auf der Seite ist."""
         ctk.CTkButton(

@@ -1,16 +1,15 @@
 # models/profil.py
-"""Datenmodell für das Nutzerprofil, hält die persönlichen Daten und die
-Liste aller eingetragenen Kurse."""
+"""Datenmodell für das Nutzerprofil enthält Name, Matrikelnummer und
+die Liste aller eingetragenen Kurse."""
 from models.kurs import Kurs
 
 
 class Profil:
     """Repräsentiert das Nutzerprofil mit allen Kursen.
 
-    Die Kurse werden bewusst hier im Profil verwaltet (nicht im Studiengang),
-    da sie individuell vom Nutzer gepflegt werden. Der Studiengang erhält die
-    Kursliste bei Bedarf als Parameter für Berechnungen (siehe StudiengangService).
-    """
+    Die Kurse liegen bewusst hier im Profil, nicht im Studiengang, weil
+    sie individuell vom Nutzer gepflegt werden. Für Berechnungen bekommt
+    der StudiengangService die Kursliste einfach als Parameter übergeben."""
 
     def __init__(self, name: str, matrikelnummer: str):
         self._name = name

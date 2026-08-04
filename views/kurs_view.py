@@ -9,7 +9,7 @@ from models.kurs import Kurs
 from models.pruefungsleistung import Pruefungsleistung
 from models.status import Status
 
-# Design-Farbpalette, siehe dashboard_view.py für die gleiche Palette
+# Design-Farbpalette
 DUNKEL = "#0d0d14"
 KARTEN_BG = "#13111f"
 BORDER = "#1e1a2e"
@@ -29,7 +29,7 @@ class KursView(ctk.CTkFrame):
     def __init__(self, parent, kurs: Kurs, app):
         # Rahmenfarbe wird einmalig beim Erstellen berechnet (nicht bei jedem
         # Hover neu), da sie sich nur ändert, wenn sich der Kurs selbst ändert
-        # (und dann wird die Kachel eh komplett neu erzeugt, siehe
+        # (und dann wird die Kachel komplett neu erzeugt, siehe
         # DashboardView.aktualisieren()).
         countdown = kurs.berechne_countdown()
         if kurs.status == Status.BESTANDEN:
@@ -48,13 +48,8 @@ class KursView(ctk.CTkFrame):
         self._hover_setup()
 
     def _hover_setup(self):
-        """Setzt Hover-Effekt für den Rahmen.
+        """Setzt Hover-Effekt für den Rahmen."""
 
-        Enter/Leave wird auf ALLE Kind-Widgets rekursiv gebunden, da Tkinter
-        beim Überqueren von Kind-Widgets innerhalb des Frames sonst ständig
-        Leave- und Enter-Events auf dem äußeren Frame auslöst (jedes Kind-Widget
-        ist technisch ein eigenes Fenster) -> ohne das flackert der Rahmen.
-        """
         def eintreten(_event):
             self.configure(border_color=self._rahmen_farbe)
 
@@ -145,9 +140,7 @@ class KursView(ctk.CTkFrame):
             ctk.CTkLabel(info_zeile, text=f"Lektion {abgeschlossen} / {gesamt}", font=ctk.CTkFont(size=12), text_color=TEXT_MUTED).pack(side="right")
 
         # Ein kleiner runder Button pro Lektion, anklickbar zum Abhaken.
-        # Maximal 20 Lektionen pro Kurs (siehe Kurs.lektionen_anzahl_anpassen),
-        # daher bewusst in EINER Reihe ohne Umbruch - das Grid im DashboardView
-        # (uniform-Gruppe) sorgt trotzdem für gleich breite Kacheln.
+        # Maximal 20 Lektionen pro Kurs (siehe Kurs.lektionen_anzahl_anpassen)
         if self.kurs.lektionen:
             for lektion in self.kurs.lektionen:
                 farbe = balken_farbe if lektion.abgeschlossen else DUNKEL
@@ -183,7 +176,7 @@ class KursView(ctk.CTkFrame):
             hinweis.pack(fill="x", padx=20, pady=(0, 16))
             if self.kurs.pruefungstermin is None:
                 # Fehlversuch, aber noch kein neuer Termin für den nächsten Versuch gesetzt
-                text = "Nicht bestanden — kein Problem! Trag im Profil einen neuen Prüfungstermin für deinen nächsten Versuch ein."
+                text = "Nicht bestanden, nicht so schlimm! Trag im Profil einen neuen Prüfungstermin für deinen nächsten Versuch ein."
                 farbe = ROT
             else:
                 # Neuer Termin ist schon gesetzt, liegt aber noch in der Zukunft
@@ -254,7 +247,7 @@ class KursView(ctk.CTkFrame):
 
         Reihenfolge wichtig: erst die Zahl parsen, dann die Note validieren
         (1.0-5.0 über Pruefungsleistung.note), und erst wenn BEIDES gültig
-        ist, die Änderungen am Kurs vornehmen - so bleibt der Kurs bei einer
+        ist, die Änderungen am Kurs vornehmen, so bleibt der Kurs bei einer
         ungültigen Eingabe unverändert (kein Partial-Save).
         """
         eingabe = self.note_eingabe.get().strip().replace(",", ".")  # deutsches Komma als Dezimaltrennzeichen erlauben
@@ -276,7 +269,7 @@ class KursView(ctk.CTkFrame):
             lektion.abgeschlossen = True
         if not pl.ist_bestanden():
             # Der jetzt "verbrauchte" Prüfungstermin wird zurückgesetzt, damit die
-            # Noteneingabe nicht direkt wieder erscheint - erst wenn im Profil
+            # Noteneingabe nicht direkt wieder erscheint, erst wenn im Profil
             # explizit ein neuer Termin für den nächsten Versuch eingetragen wird.
             self.kurs.pruefungstermin = None
         self.app.daten_speichern()
@@ -296,15 +289,7 @@ class KursView(ctk.CTkFrame):
 
     def _note_korrigieren(self):
         """Löscht eine versehentlich falsch eingetragene Note wieder, damit
-        sie neu eingegeben werden kann.
-
-        Ruft bewusst Pruefungsleistung.pruefung_entfernen() auf (statt die
-        Note direkt zu überschreiben), um die vorhandene, dafür vorgesehene
-        Methode zu nutzen. Da eine 'leere' Pruefungsleistung inhaltlich
-        aber nichts mehr aussagt, wird sie danach zusätzlich ganz vom Kurs
-        entfernt (pruefungsleistung = None) - dadurch erscheint das Kurs
-        wieder genau wie vor der ersten Noteneingabe.
-        """
+        sie neu eingegeben werden kann."""
         if self.kurs.pruefungsleistung is not None:
             self.kurs.pruefungsleistung.pruefung_entfernen()
             self.kurs.pruefungsleistung = None

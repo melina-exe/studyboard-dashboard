@@ -1,5 +1,5 @@
 # models/studiengang.py
-"""Datenmodell für den Studiengang, reines Datenobjekt ohne eigene Logik.
+"""Datenmodell für den Studiengang ein reines Datenobjekt ohne eigene Logik.
 Berechnungen (ECTS-Fortschritt, Durchschnitt etc.) übernimmt der
 StudiengangService, dem die Kursliste jeweils als Parameter übergeben wird."""
 

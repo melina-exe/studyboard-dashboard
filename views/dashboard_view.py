@@ -5,9 +5,7 @@ Notendurchschnitt, bestandene Kurse), eine Kachel Übersicht aller aktiven
 import customtkinter as ctk
 from PIL import Image
 
-# Design-Farbpalette (dunkles Farbschema, siehe Phase-3-Abstract für die
-# Begründung: bessere Lesbarkeit der Status-Farben und ruhigere Optik als
-# der ursprünglich in Phase 1 skizzierte helle Hintergrund).
+
 DUNKEL = "#0d0d14"
 KARTEN_BG = "#13111f"
 BORDER = "#1e1a2e"
@@ -104,7 +102,7 @@ class DashboardView(ctk.CTkFrame):
         """Aktualisiert die komplette Dashboard-Ansicht mit dem aktuellen
         Datenstand. Wird bei jedem Wechsel zur Dashboard-Ansicht aufgerufen
         (siehe DashboardApp.ansicht_wechseln), damit Änderungen aus der
-        Profilansicht (neuer Kurs, Note eingetragen, ...) sofort sichtbar sind."""
+        Profilansicht (neuer Kurs, Note eingetragen, etc.) sofort sichtbar sind."""
         kurse = self.app.profil.kurse
         service = self.app.studiengang_service
 
@@ -142,7 +140,7 @@ class DashboardView(ctk.CTkFrame):
             # uniform="kurskarte" erzwingt, dass beide Spalten IMMER exakt
             # gleich breit sind, unabhängig davon, wie viel Inhalt (z.B.
             # Anzahl Lektionen) eine einzelne Karte hat. Ohne das würde eine
-            # besonders "volle" Karte ihre Spalte in die Breite ziehen und
+            # besonders volle Karte ihre Spalte in die Breite ziehen und
             # das Raster wirkt bei Fensteränderung ungleichmäßig.
             self.kurs_scroll.grid_columnconfigure(0, weight=1, uniform="kurskarte")
             self.kurs_scroll.grid_columnconfigure(1, weight=1, uniform="kurskarte")
